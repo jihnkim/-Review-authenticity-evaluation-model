@@ -9,7 +9,7 @@ import numpy as np
 
 df = pd.read_csv('store_info.csv', sep=',', encoding='utf-8')
 
-df = df[['store_id', 'region', 'store_name', 'store_addr', 'store_addr_new']]
+df = df[['store_id', 'region', 'store_name', 'store_addr', 'store_addr_new', 's_link', 'g_link', 'd_link', 'n_link']]
 
 df['key_words'] = df['store_addr'] + ' ' + df['store_name']
 

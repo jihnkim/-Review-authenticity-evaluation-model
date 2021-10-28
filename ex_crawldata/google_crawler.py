@@ -19,7 +19,7 @@ from Bs4Utils import StaticCrawler
 # preprocessing
 df = pd.read_csv('store_info.csv', sep=',', encoding='utf-8')
 
-df = df[['store_id', 'region', 'store_name', 'store_addr', 'store_addr_new']]
+df = df[['store_id', 'region', 'store_name', 'store_addr', 'store_addr_new', 'open_hours', "website", ]]
 
 df['key_words'] = df['store_addr'] + ' ' + df['store_name']
 
