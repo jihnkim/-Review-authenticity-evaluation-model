@@ -9,7 +9,7 @@ from tqdm import tqdm
 # 구글 맵스에서 F12, 네트워크에서 해당 음식점 검색 후 curl 카피후 python 변환
 
 df = pd.read_csv('storeInfo_1.csv', sep=',', encoding='utf-8')
-df = df.iloc[0:100, :]
+# df = df.iloc[0:1000, :]
 
 df['key_words'] = df['store_addr'] + ' ' + df['store_name']
 
@@ -70,46 +70,49 @@ for n, keyword in tqdm(enumerate(df['key_words'].tolist())):
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36',
         }
 
-    for num in range(0, int(review_cnt), 10):
-        try:
-            params = (
-                ('authuser', '0'),
-                ('hl', 'ko'),
-                ('gl', 'kr'),
-                ('pb',
-                 f'!1m2!1y{first_query}!2y{second_query}!2m2!1i{num}!2i10!3e2!4m5!3b1!4b1!5b1!6b1!7b1!5m2!1sZ012YdKFJuW4mAWWz67ICg!7e81'))
 
-            response = requests.get('https://www.google.com/maps/preview/review/listentitiesreviews', headers=headers,
-                                    params=params)
-            res_text = response.text
-            res_text = res_text.replace(")]}'", "")
+    try:
+        for num in range(0, int(review_cnt), 10):
+            try:
+                params = (
+                    ('authuser', '0'),
+                    ('hl', 'ko'),
+                    ('gl', 'kr'),
+                    ('pb',
+                     f'!1m2!1y{first_query}!2y{second_query}!2m2!1i{num}!2i10!3e2!4m5!3b1!4b1!5b1!6b1!7b1!5m2!1sZ012YdKFJuW4mAWWz67ICg!7e81'))
 
-            # json으로 load
-            info_json = json.loads(res_text)
+                response = requests.get('https://www.google.com/maps/preview/review/listentitiesreviews',
+                                        headers=headers,
+                                        params=params)
+                res_text = response.text
+                res_text = res_text.replace(")]}'", "")
 
-            for i in info_json[2]:
-                portal_id = 1002
-                review_text = i[3]
-                score = i[4]
-                date = pd.to_datetime(f'{i[27]}', unit='ms')
+                # json으로 load
+                info_json = json.loads(res_text)
 
-                if review_text == None:
-                    continue
-                else:
+                for i in info_json[2]:
+                    portal_id = 1002
+                    review_text = i[3]
+                    score = i[4]
+                    date = pd.to_datetime(f'{i[27]}', unit='ms')
+                    #
+                    # if review_text == None:
+                    #     continue
                     review_dataset.append([store_id, portal_id, review_text, score, str(date)[0:10]])
 
-        except:
-            print('end of docs')
-            break
+            except:
+                print('end of docs')
+                break
+    except:
+        print('No info')
+        pass
 
 # save as csv (store info)
 info_df = pd.DataFrame(store_info_dataset, columns=['store_id', 'website', 'g_link'])
-info_df.to_csv('google_info_15.csv')
+info_df.to_csv('google_info_20.csv')
 print('info saved')
-
 
 # save as csv (review)
 review_df = pd.DataFrame(review_dataset, columns=['store_id', 'portal_id', 'review', 'score', 'date'])
-review_df.to_csv('google_review_15.csv')
+review_df.to_csv('google_review_20.csv')
 print('review saved')
-

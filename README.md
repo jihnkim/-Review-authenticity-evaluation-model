@@ -12,3 +12,7 @@
 - store_info.csv 빈 컬럼 채우는 코드 작성(21.10.28)
 - store_info_1.csv 구동 확인(본 파일)(21.10.29)
 ****
+#### 2. 리뷰 전처리(Preprocessing)
+
+- gpu 환경설정 : CUDA driver, CUDA toolkit, cuDNN, tensorflow-gpu(21.11.01)
+- 전처리 패키지 인스톨, 구동 확인
