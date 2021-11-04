@@ -16,3 +16,4 @@
 
 - gpu 환경설정 : CUDA driver, CUDA toolkit, cuDNN, tensorflow-gpu(21.11.01)
 - 전처리 패키지 인스톨, 구동 확인
+- hanspell, kss
