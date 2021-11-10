@@ -16,4 +16,11 @@
 
 - gpu 환경설정 : CUDA driver, CUDA toolkit, cuDNN, tensorflow-gpu(21.11.01)
 - 전처리 패키지 인스톨, 구동 확인
-- hanspell, kss
+- hanspell, soynlp, kospacing, punct 처리
+- kss 파이참 error
+- 패키지 구현 완료
+
+****
+#### 3. Word2Vec
+
+- 전처리 파일 받아서 tokenizer 적용

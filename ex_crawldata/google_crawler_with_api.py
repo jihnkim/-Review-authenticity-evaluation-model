@@ -7,13 +7,12 @@ import numpy as np
 from tqdm import tqdm
 
 # 구글 맵스에서 F12, 네트워크에서 해당 음식점 검색 후 curl 카피후 python 변환
-
 df = pd.read_csv('storeInfo_1.csv', sep=',', encoding='utf-8')
 df['key_words'] = df['store_addr'] + ' ' + df['store_name']
 
 dfs = np.array_split(df, 10) # split the dataframe into 10 separate tables
 
-df = dfs[1].reset_index(inplace=False) # 0 ~ 9
+df = dfs[5].reset_index(inplace=False) # 0 ~ 9
 
 print(df)
 
@@ -118,10 +117,10 @@ for n, keyword in tqdm(enumerate(df['key_words'].tolist())):
 
 # save as csv (store info)
 info_df = pd.DataFrame(store_info_dataset, columns=['store_id', 'website', 'g_link'])
-info_df.to_csv('google_info_2_10.csv')
+info_df.to_csv('google_info_6_10.csv')
 print('info saved')
 
 # save as csv (review)
 review_df = pd.DataFrame(review_dataset, columns=['store_id', 'portal_id', 'review', 'score', 'date'])
-review_df.to_csv('google_review_2_10.csv')
+review_df.to_csv('google_review_6_10.csv')
 print('review saved')
