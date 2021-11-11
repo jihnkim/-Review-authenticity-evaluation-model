@@ -29,9 +29,13 @@ def clean_text(texts : list) -> list:
         review = re.sub(r'\s+', ' ', review) #remove spaces
         review = re.sub(r"^\s+", '', review) #remove space from start
         review = re.sub(r'\s+$', '', review) #remove space from the end
-        review = re.sub(r'^[A-Za-z0-9+]*$', '', review) #remove alphabet, numbers
+        review = re.sub(r'[A-Za-z0-9+]*$', '', review) #remove alphabet, numbers
         review = re.sub(r'[-=+,#/\?:^$.@*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`\'…》]', '', review) #remove special characters
         review = re.sub(r'[^\w\s]', '', review) #remove punctuation
+
+        if review[:6] == 'google':
+            review = review[6:review.find('원문')]
+
         corpus.append(review)
     return corpus
 
