@@ -24,3 +24,6 @@
 #### 3. Word2Vec
 
 - 전처리 파일 받아서 tokenizer 적용
+- 형태소 분석기로 mecap 사용
+- twipp 관련 issue >> 모듈 내부에서 class CorpusListener(tweepy.Stream): Listener 수정
+- conda 환경에서 jPype1.1.2 설치, java 관련 issue >> 환경변수, jpype 버전확인
