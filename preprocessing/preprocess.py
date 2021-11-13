@@ -3,8 +3,7 @@ from google_review_preprocessing import *
 from tqdm import tqdm
 
 df = pd.read_csv('google_review_1_10.csv')
-
-df = df.iloc[0:500, :]
+df = df.iloc[0:30, :]
 
 pre_df = df['review']
 
@@ -20,6 +19,11 @@ for idx, review in tqdm(enumerate(review_row)):
 
     preprocessed_review_row. append(review)
 
-print(preprocessed_review_row)
-print(len(preprocessed_review_row))
+# print(preprocessed_review_row)
+# print(len(preprocessed_review_row))
+
+df['preprocessed_review'] = preprocessed_review_row
+df = df.drop(columns=['Unnamed: 0'], axis=1)
+
+df.to_csv('google_review_preprocessed.csv', index=False)
 
