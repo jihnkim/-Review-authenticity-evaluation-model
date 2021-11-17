@@ -5,7 +5,7 @@ def merge_files(review):
     if review == True:
         df_lst = []
         for i in range(1, 11):
-            df = pd.read_csv(f'google_review_{i}_10.csv', sep=',', encoding='utf-8')
+            df = pd.read_csv(f'data/google_info_{i}_10.csv', sep=',', encoding='utf-8')
             df = df.drop(columns=['Unnamed: 0'], axis=1)
             df_lst.append(df)
 
@@ -19,4 +19,4 @@ def merge_files(review):
         pass
 
 result_df = merge_files(True)
-result_df.to_csv('google_review.csv', index=False)
+result_df.to_csv('google_info.csv', index=False)
