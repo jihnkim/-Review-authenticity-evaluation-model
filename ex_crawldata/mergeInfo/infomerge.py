@@ -26,7 +26,7 @@ main_df = main_df[['store_id',
                   'website',
                   'd_link']]
 
-# print(main_df['store_tel'])
+# print(main_df['website'])
 
 def info_merge():
     naver_df = pd.read_csv(f'naver_info.csv', sep=',', encoding='utf-8')
@@ -34,7 +34,7 @@ def info_merge():
     siksin_df = pd.read_csv(f'siksin_info.csv', sep=',', encoding='utf-8')
 
     # naver df 전처리 필요
-    naver_df = naver_df.dropna()
+    naver_df = naver_df.dropna(subset=['store_id'])
     naver_df.reset_index(drop=True, inplace=True)
 
     lst = naver_df['store_id'].tolist()
@@ -71,10 +71,9 @@ def info_merge():
             elif i > 1:
                 continue
 
-            elif column == 'website':
-                for idx, store_id in enumerate(main_df['store_id']):
-                    main_df.loc[main_df['website'] == '', 'website'] = siksin_df['website'][idx]
-                    main_df.loc[main_df['website'] == '', 'website'] = google_df['website'][idx]
+            # elif column == 'website':
+            #     for idx, store_id in enumerate(main_df['store_id']):
+            #         main_df.loc[main_df['website'] == None, 'website'] = siksin_df['website'][idx]
 
             elif column == 'open_hours':
                 for idx, store_id in enumerate(main_df['store_id']):
@@ -84,6 +83,7 @@ def info_merge():
                 for idx, store_id in enumerate(main_df['store_id']):
                     main_df.loc[main_df['store_tel'] == '', 'store_tel'] = siksin_df['store_tel'][idx]
 
+    main_df['website'] = siksin_df['website']
     main_df['n_link'] = n_link_lst
     main_df['g_link'] = g_link_lst
     main_df['s_link'] = s_link_lst
@@ -94,3 +94,5 @@ def info_merge():
 
 result = info_merge()
 print(result)
+
+result.to_csv('storeInfo.csv', encoding='utf-8', index=False)

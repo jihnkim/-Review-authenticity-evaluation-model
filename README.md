@@ -21,9 +21,30 @@
 - 패키지 구현 완료
 
 ****
-#### 3. Word2Vec
+#### 3. 워드 임베딩(Word Embedding)
 
 - 전처리 파일 받아서 tokenizer 적용
 - 형태소 분석기로 mecap 사용
 - twipp 관련 issue >> 모듈 내부에서 class CorpusListener(tweepy.Stream): Listener 수정
 - conda 환경에서 jPype1.1.2 설치, java 관련 issue >> 환경변수, jpype 버전확인
+- 문서 벡터화 후 평점 tagging(doctag_id로 score 지정)
+
+****
+#### 4. DEC(Deep Embedding for Clustering)
+
+- KoBERT 의 분류 성능 향상을 위해 사용
+- 비지도 학습으로 AutoEncoder와 Kmeans를 혼합한 모델
+
+****
+#### 5. KoBERT
+
+- DEC의 결과 데이터를 받아 KoBERT로 다중 분류 시작
+issue >
+  1. transformers 버전 문제 > 모델 파라미터 return_dict=False
+  2. 모델 load시 HTTPS error? kobert_hf 패키지 참고
+  3. ..
+- 각 리뷰의 새로운 평점 컬럼 생성
+- 리뷰에 해당하는 가게의 새로운 평점 평균 생성 성공!!!!!
+  (약 360만개 데이터, accuracy 88%)
+- 모델 학습을 하며 데이터의 중요성을 다시 한번 깨달았당..  
+fin. 
